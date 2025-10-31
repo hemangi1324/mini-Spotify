@@ -80,6 +80,7 @@ int main()
     pl.insertSong("Mann Mera",7.8,"Gajendra Verma");
     pl.insertSong("Pal Pal Dil Ke Pass",9.24,"Kishor Kumar");
     pl.insertSong("Om Namo Bhagavate vasudevaya",4.10,"Sam C.S.");
+     pl.insertSong("Tu hi tu hai",4.10,"suh");
     cout<<"--------------------------------------------------------------WELCOME TO OUR MINI SPOTIFY--------------------------------------------------------------"<<endl;
     cout<<"Good Vibes Start Here...."<<endl;
     pl.display();
