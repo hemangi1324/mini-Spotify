@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <unistd.h>
 using namespace std;
 
 class Songs
@@ -116,6 +117,36 @@ public:
             cout << cnt << " . " << nptr->title << endl;
             cnt++;
             nptr = nptr->next;
+        }
+    }
+
+    void playforwardloop(int count){
+        Songs *nptr;
+        nptr = head;
+        int cnt =1;
+        while(cnt<count){
+            nptr=nptr->next;
+        }
+        Songs *curr = nptr->prev;
+        while(nptr != NULL && nptr!=curr){
+            cout<<"Playing the song :"<<nptr->title<<endl;
+            sleep(nptr->duration);
+            nptr = nptr->next;
+        }
+    }
+
+    void playbackwardloop(int count){
+        Songs *nptr;
+        nptr = head;
+        int cnt =1;
+        while(cnt<count){
+            nptr=nptr->next;
+        }
+        Songs *curr = nptr->next;
+        while(nptr != NULL && nptr!=curr){
+            cout<<"Playing the song :"<<nptr->title<<endl;
+            sleep(nptr->duration);
+            nptr = nptr->prev;
         }
     }
 };
