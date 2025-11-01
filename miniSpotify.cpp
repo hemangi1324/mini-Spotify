@@ -86,8 +86,8 @@ public:
             if (root == NULL)
             {
                 root = userNode;
-                userNode->next=root;
-                userNode->prev=root;
+                userNode->next = root;
+                userNode->prev = root;
                 cout << "Added at 1st" << endl;
             }
             else
@@ -95,10 +95,10 @@ public:
                 Songs *temp;
                 temp = root->prev;
 
+                temp->next = userNode;
                 userNode->prev = temp;
                 userNode->next = root;
-                temp->next=userNode;
-                root->prev=userNode;
+                root->prev = userNode;
                 cout << "Added!!" << endl;
             }
         }
@@ -109,127 +109,159 @@ public:
         }
     }
 
-//     void deleteSongFromPlaylist(string name, Songs* userPl){
-//         Songs* currNode;
-//         currNode=userPl;
-//         int found=0;
-//        while (true) { // circular traversal fix
-//         if (currNode->title == name) {
-//             found = 1;
-//             break;
-//         }
-//         currNode = currNode->next;
-//         if (currNode == userPl) break; // stop after full circle
-//     }
-// cout<<"hi"<<endl;
+    //     void deleteSongFromPlaylist(string name, Songs* userPl){
+    //         Songs* currNode;
+    //         currNode=userPl;
+    //         int found=0;
+    //        while (true) { // circular traversal fix
+    //         if (currNode->title == name) {
+    //             found = 1;
+    //             break;
+    //         }
+    //         currNode = currNode->next;
+    //         if (currNode == userPl) break; // stop after full circle
+    //     }
+    // cout<<"hi"<<endl;
 
-//         if(found==1){
-//             if(currNode==userPl){//deletion at start
-//                 userPl=currNode->next;
-//                 userPl->prev=currNode->prev;
-//                 currNode->prev->next=userPl;
-//                 delete(currNode);
-//                 cout<<"FOUND AND DELETED"<<endl;
-//             }
-//             else{   //deletion any where!
-//                 currNode->prev->next=currNode->next;
-//                 currNode->next->prev=currNode->prev;
-//                 delete(currNode);
-//             }
-            
-//         }
-//         else{
-//             cout<<"This song does not exist in your Playlist!"<<endl;
-//         }
-//     }
+    //         if(found==1){
+    //             if(currNode==userPl){//deletion at start
+    //                 userPl=currNode->next;
+    //                 userPl->prev=currNode->prev;
+    //                 currNode->prev->next=userPl;
+    //                 delete(currNode);
+    //                 cout<<"FOUND AND DELETED"<<endl;
+    //             }
+    //             else{   //deletion any where!
+    //                 currNode->prev->next=currNode->next;
+    //                 currNode->next->prev=currNode->prev;
+    //                 delete(currNode);
+    //             }
 
-void deleteSongFromPlaylist(string name, Songs* userPl) {
-    Songs* currNode = userPl;
-    int found = 0;
+    //         }
+    //         else{
+    //             cout<<"This song does not exist in your Playlist!"<<endl;
+    //         }
+    //     }
 
-    // circular traversal (search)
-    while (true) {
-        if (currNode->title == name) {
-            found = 1;
-            break;
+    void deleteSongFromPlaylist(string name, Songs *userPl)
+    {
+        Songs *currNode = userPl;
+        int found = 0;
+
+        // circular traversal (search)
+        while (true)
+        {
+            if (currNode->title == name)
+            {
+                found = 1;
+                break;
+            }
+            currNode = currNode->next;
+            if (currNode == userPl)
+                break; // full circle done
         }
-        currNode = currNode->next;
-        if (currNode == userPl) break; // full circle done
+
+        if (found == 1)
+        {
+            // ✅ handle single-node playlist
+            if (currNode->next == currNode)
+            {
+                root = NULL;
+                delete currNode;
+                cout << "FOUND AND DELETED (playlist now empty)" << endl;
+                return;
+            }
+
+            // ✅ deleting first node
+            if (currNode == root)
+            {
+                root = currNode->next;
+                root->prev = currNode->prev;
+                currNode->prev->next = root;
+                delete currNode;
+                cout << "FOUND AND DELETED" << endl;
+            }
+            else
+            { // ✅ deleting middle/last node
+                currNode->prev->next = currNode->next;
+                currNode->next->prev = currNode->prev;
+                delete currNode;
+                cout << "FOUND AND DELETED" << endl;
+            }
+        }
+        else
+        {
+            cout << "This song does not exist in your Playlist!" << endl;
+        }
     }
 
-    if (found == 1) {
-        // ✅ handle single-node playlist
-        if (currNode->next == currNode) {
-            root = NULL;
-            delete currNode;
-            cout << "FOUND AND DELETED (playlist now empty)" << endl;
-            return;
-        }
 
-        // ✅ deleting first node
-        if (currNode == root) {
-            root = currNode->next;
-            root->prev = currNode->prev;
-            currNode->prev->next = root;
-            delete currNode;
-            cout << "FOUND AND DELETED" << endl;
-        } 
-        else { // ✅ deleting middle/last node
-            currNode->prev->next = currNode->next;
-            currNode->next->prev = currNode->prev;
-            delete currNode;
-            cout << "FOUND AND DELETED" << endl;
-        }
-    } 
-    else {
-        cout << "This song does not exist in your Playlist!" << endl;
+
+    void playbackwardloop(string name)
+{
+    Songs *nptr;
+    nptr = root;
+    while (nptr->title != name)
+    {
+        nptr = nptr->next;
+    }
+    Songs *curr = nptr->next;
+    while (nptr != NULL && nptr != curr)
+    {
+        cout << "Playing the song :" << nptr->title << endl;
+        sleep(nptr->duration);
+        nptr = nptr->prev;
     }
 }
 
-
-
-
-    void display()
+void display()
+{
+    Songs *nptr;
+    nptr = head;
+    int cnt = 1;
+    while (nptr != NULL)
     {
-        Songs *nptr;
-        nptr = head;
-        int cnt = 1;
-        while (nptr != NULL)
-        {
-            cout << cnt << " . " << nptr->title << endl;
-            cnt++;
-            nptr = nptr->next;
-        }
+        cout << cnt << " . " << nptr->title << endl;
+        cnt++;
+        nptr = nptr->next;
     }
+}
 
-    void playforwardloop(string name){
-        Songs *nptr;
-        nptr = root;
-        while(nptr->title!=name){
-            nptr=nptr->next;
-        }
-        Songs *curr = nptr->prev;
-        while(nptr != NULL && nptr!=curr){
-            cout<<"Playing the song :"<<nptr->title<<endl;
-            sleep(nptr->duration);
-            nptr = nptr->next;
-        }
+void playforwardloop(string name)
+{
+    Songs *nptr;
+    nptr = root;
+    while (nptr->title != name)
+    {
+        nptr = nptr->next;
     }
+    Songs *curr = nptr->prev;
+    while (nptr != NULL && nptr != curr)
+    {
+        cout << "Playing the song :" << nptr->title << endl;
+        sleep(nptr->duration);
+        nptr = nptr->next;
+    }
+}
 
-    void playbackwardloop(string name){
-        Songs *nptr;
-        nptr = root;
-        while(nptr->title!=name){
-            nptr=nptr->next;
-        }
-        Songs *curr = nptr->next;
-        while(nptr != NULL && nptr!=curr){
-            cout<<"Playing the song :"<<nptr->title<<endl;
-            sleep(nptr->duration);
-            nptr = nptr->prev;
-        }
+void disp(){
+    Songs* currNode;
+    currNode=root;
+    while(true){
+        cout<<currNode->title<<"  ";
+        currNode=currNode->next;
+        if(currNode==root) break;
     }
+}
+    
 };
+
+
+
+
+
+
+
 
 int main()
 {
@@ -255,7 +287,8 @@ int main()
     u.insertSongPlaylist("Maand", pl.head);
     u.insertSongPlaylist("Husn", pl.head);
     u.insertSongPlaylist("Hero", pl.head);
-    u.deleteSongFromPlaylist("Maand",pl.root);
+    u.disp();
+    u.deleteSongFromPlaylist("Maand", pl.root);
     int choice;
     cout << "What would you like to do?" << endl
          << "1.CREATE YOUR OWN PLAYLIST" << endl
@@ -265,7 +298,7 @@ int main()
          << "5.PLAY A SONG FROM PLAYLIST" << endl
          << "6.PLAY NEXT SONG" << endl
          << "7.PLAY PREVIOUS SONG" << endl
-         << "8.PLAY SONGS FROM YOUR OWN PLAYLIST ON LOOP"<<endl
+         << "8.PLAY SONGS FROM YOUR OWN PLAYLIST ON LOOP" << endl
          << "9.VIEW RECENTLY PLAYED SONGS" << endl;
     cin >> choice;
     switch (choice)
@@ -273,68 +306,67 @@ int main()
     case 1:
     {
         int n;
-        cout<<"Enter number of songs you want in your playlist:";
-        cin>>n;
+        cout << "Enter number of songs you want in your playlist:";
+        cin >> n;
         string arr[n];
-        for(int i=0;i<n;i++){
-            cin>>arr[i];
-            u.insertSongPlaylist(arr[i],pl.head);
+        for (int i = 0; i < n; i++)
+        {
+            cin >> arr[i];
+            u.insertSongPlaylist(arr[i], pl.head);
         }
     }
 
     case 2:
     {
         string s;
-        cout<<"Enter the song name you want to add:";
-        cin>>s;
-        u.insertSongPlaylist(s,pl.head);
+        cout << "Enter the song name you want to add:";
+        cin >> s;
+        u.insertSongPlaylist(s, pl.head);
     }
 
     case 3:
     {
         string str;
-        cout<<"Enter a song name you want to delete:";
-        cin>>str;
-        u.deleteSongFromPlaylist(str,u.root);
+        cout << "Enter a song name you want to delete:";
+        cin >> str;
+        u.deleteSongFromPlaylist(str, u.root);
     }
 
     case 4:
     {
-
     }
 
     case 5:
     {
-
     }
 
     case 6:
     {
-
     }
 
     case 7:
     {
-
     }
 
     case 8:
     {
         int n;
-        cout<<"Do you want to play the playlist 1.forward or 2.backward?";
-        cin>>n;
+        cout << "Do you want to play the playlist 1.forward or 2.backward?";
+        cin >> n;
         string song;
-        cout<<"From which song do you want to play?";
-        cin>>song;
-        if(n==1){
+        cout << "From which song do you want to play?";
+        cin >> song;
+        if (n == 1)
+        {
             u.playforwardloop(song);
-        }else{
+        }
+        else
+        {
             u.playbackwardloop(song);
         }
     }
     case 9:
     {
-        
     }
     }
 }
