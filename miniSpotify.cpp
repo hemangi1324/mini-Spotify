@@ -202,11 +202,10 @@ void deleteSongFromPlaylist(string name, Songs* userPl) {
         }
     }
 
-    void playforwardloop(int count){
+    void playforwardloop(string name){
         Songs *nptr;
-        nptr = head;
-        int cnt =1;
-        while(cnt<count){
+        nptr = root;
+        while(nptr->title!=name){
             nptr=nptr->next;
         }
         Songs *curr = nptr->prev;
@@ -217,11 +216,10 @@ void deleteSongFromPlaylist(string name, Songs* userPl) {
         }
     }
 
-    void playbackwardloop(int count){
+    void playbackwardloop(string name){
         Songs *nptr;
-        nptr = head;
-        int cnt =1;
-        while(cnt<count){
+        nptr = root;
+        while(nptr->title!=name){
             nptr=nptr->next;
         }
         Songs *curr = nptr->next;
@@ -237,6 +235,7 @@ int main()
 {
     Library pl;
     Library u;
+    Library user;
     pl.insertSongLibrary("Maand", 5.8, "Suhani");
     pl.insertSongLibrary("Jhol", 6.1, "Maanu");
     pl.insertSongLibrary("Sahiba", 5.2, "Aditya Rikhari");
@@ -273,18 +272,69 @@ int main()
     {
     case 1:
     {
+        int n;
+        cout<<"Enter number of songs you want in your playlist:";
+        cin>>n;
+        string arr[n];
+        for(int i=0;i<n;i++){
+            cin>>arr[i];
+            u.insertSongPlaylist(arr[i],pl.head);
+        }
     }
 
     case 2:
     {
+        string s;
+        cout<<"Enter the song name you want to add:";
+        cin>>s;
+        u.insertSongPlaylist(s,pl.head);
     }
 
     case 3:
     {
+        string str;
+        cout<<"Enter a song name you want to delete:";
+        cin>>str;
+        u.deleteSongFromPlaylist(str,u.root);
     }
 
     case 4:
     {
+
+    }
+
+    case 5:
+    {
+
+    }
+
+    case 6:
+    {
+
+    }
+
+    case 7:
+    {
+
+    }
+
+    case 8:
+    {
+        int n;
+        cout<<"Do you want to play the playlist 1.forward or 2.backward?";
+        cin>>n;
+        string song;
+        cout<<"From which song do you want to play?";
+        cin>>song;
+        if(n==1){
+            u.playforwardloop(song);
+        }else{
+            u.playbackwardloop(song);
+        }
+    }
+    case 9:
+    {
+        
     }
     }
 }
