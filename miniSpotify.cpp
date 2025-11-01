@@ -52,7 +52,7 @@ public:
         {
             Songs *nptr;
             nptr = head;
-            while (nptr->next != head)
+            while (nptr->next != NULL)
             {
                 nptr = nptr->next;
             }
@@ -66,7 +66,7 @@ public:
         int found = 0;
         Songs *nptr;
         nptr = main;
-        while (nptr != main)
+        while (nptr != NULL)
         {
             if (nptr->title == name)
             {
@@ -86,6 +86,7 @@ public:
             if (root == NULL)
             {
                 root = userNode;
+                userNode->next=root;
                 cout << "Added at 1st" << endl;
             }
             else
