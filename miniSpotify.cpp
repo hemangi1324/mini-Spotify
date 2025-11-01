@@ -2,145 +2,175 @@
 #include <string>
 using namespace std;
 
-class Library{
-
-};
-
-
-
-
-class Playlist
+class Songs
 {
 public:
-    struct AdminPl
+    string title;
+    float duration;
+    string singer;
+    Songs *prev;
+    Songs *next;
+
+    Songs(string name, float time, string singerr)
     {
-        string title;
-        float duration;
-        string singer;
-        AdminPl *prev;
-        AdminPl *next;
-    };
-    AdminPl *head;
+        title = name;
+        duration = time;
+        singer = singerr;
+        prev = NULL;
+        next = NULL;
+    }
+};
 
+class Library
+{
+public:
+    Songs *head;
+    Songs *root;
 
-    Playlist()
+    Library()
     {
         head = NULL;
+        root = NULL;
     }
 
-    void insertSong(string title, float duration, string singer)
+    Songs *getHead()
     {
-        AdminPl *newnode;
-        newnode = new AdminPl;
-        newnode->title = title;
-        newnode->duration = duration;
-        newnode->singer = singer;
-        newnode->prev = NULL;
-        newnode->next = NULL;
+        return head;
+    }
+
+    void insertSongLibrary(string title, float duration, string singer)
+    {
+        Songs *newnode;
+        newnode = new Songs(title, duration, singer);
+
         if (head == NULL)
         {
             head = newnode;
         }
         else
         {
-            AdminPl *nptr;
-            nptr=head;
+            Songs *nptr;
+            nptr = head;
             while (nptr->next != NULL)
             {
                 nptr = nptr->next;
             }
             nptr->next = newnode;
+            newnode->prev = nptr;
         }
     }
 
-    void display(){
-        AdminPl* nptr;
-        nptr=head;
-        int cnt=1;
-        while(nptr!=NULL){
-            cout<<cnt<<" . "<<nptr->title<<endl;
+    void insertSongPlaylist(string name, Songs *main)
+    {
+        int found = 0;
+        Songs *nptr;
+        nptr = main;
+        while (nptr != NULL)
+        {
+            if (nptr->title == name)
+            {
+                found = 1;
+                break;
+            }
+            else
+            { // a
+                found = 0;
+            }
+            nptr = nptr->next;
+        }
+        if (found == 1)
+        {
+            Songs *userNode;
+            userNode = new Songs(nptr->title, nptr->duration, nptr->singer);
+            if (root == NULL)
+            {
+                root = userNode;
+                cout << "Added at 1st" << endl;
+            }
+            else
+            {
+                Songs *temp;
+                temp = root;
+                while (temp->next != NULL)
+                {
+                    temp = temp->next;
+                }
+                userNode->prev = temp;
+                temp->next = userNode;
+                cout << "Added!!" << endl;
+            }
+        }
+
+        else
+        {
+            cout << "No such song found!!";
+        }
+    }
+    void display()
+    {
+        Songs *nptr;
+        nptr = head;
+        int cnt = 1;
+        while (nptr != NULL)
+        {
+            cout << cnt << " . " << nptr->title << endl;
             cnt++;
-            nptr=nptr->next;
+            nptr = nptr->next;
         }
     }
 };
-//hi suhani 
+// hi suhani
 int main()
 {
-    Playlist pl;
-    pl.insertSong("Maand",5.8,"Suhani");    
-    pl.insertSong("Jhol",6.1,"Maanu");
-    pl.insertSong("Sahiba",5.2,"Aditya Rikhari");
-    pl.insertSong("Finding Her",7.6,"Kushagra");     
-    pl.insertSong("Paro",6.65,"Aditya Rikhari");
-    pl.insertSong("Baarishein",8.4,"Anuv Jain");
-    pl.insertSong("Jo Tum Mere Ho",7.5,"Anuv Jain");
-    pl.insertSong("Husn",3.8,"Anuv jain");
-    pl.insertSong("Line Without a Hook",4.32,"Ricky Montgomery");
-    pl.insertSong("Mann Mera",7.8,"Gajendra Verma");
-    pl.insertSong("Pal Pal Dil Ke Pass",9.24,"Kishor Kumar");
-    pl.insertSong("Om Namo Bhagavate vasudevaya",4.10,"Sam C.S.");
-     pl.insertSong("Tu hi tu hai",4.10,"suh");
-    cout<<"--------------------------------------------------------------WELCOME TO OUR MINI SPOTIFY--------------------------------------------------------------"<<endl;
-    cout<<"Good Vibes Start Here...."<<endl;
+    Library pl;
+    Library u;
+    pl.insertSongLibrary("Maand", 5.8, "Suhani");
+    pl.insertSongLibrary("Jhol", 6.1, "Maanu");
+    pl.insertSongLibrary("Sahiba", 5.2, "Aditya Rikhari");
+    pl.insertSongLibrary("Finding Her", 7.6, "Kushagra");
+    pl.insertSongLibrary("Paro", 6.65, "Aditya Rikhari");
+    pl.insertSongLibrary("Baarishein", 8.4, "Anuv Jain");
+    pl.insertSongLibrary("Jo Tum Mere Ho", 7.5, "Anuv Jain");
+    pl.insertSongLibrary("Husn", 3.8, "Anuv jain");
+    pl.insertSongLibrary("Line Without a Hook", 4.32, "Ricky Montgomery");
+    pl.insertSongLibrary("Mann Mera", 7.8, "Gajendra Verma");
+    pl.insertSongLibrary("Pal Pal Dil Ke Pass", 9.24, "Kishor Kumar");
+    pl.insertSongLibrary("Om Namo Bhagavate vasudevaya", 4.10, "Sam C.S.");
+    pl.insertSongLibrary("Tu hi tu hai", 4.10, "suh");
+    cout << "--------------------------------------------------------------WELCOME TO OUR MINI SPOTIFY--------------------------------------------------------------" << endl;
+    cout << "Good Vibes Start Here...." << endl;
     pl.display();
-
+    u.insertSongPlaylist("Maand", pl.head);
+    u.insertSongPlaylist("Husn", pl.head);
+    u.insertSongPlaylist("Hero", pl.head);
 
     int choice;
-    cout<<"What would you like to do?"<<endl<<"1.CREATE YOUR OWN LIBRARY"<<endl<<"2.SEARCH FOR FAVOURITE SONG"<<endl<<"3.PLAY SONGS FROM YOUR OWN LIBRARY ON LOOP"<<endl;
-    cin>>choice;
-    switch (choice){
-        case 1:{
-            
-        }
-
-        case 2:{
-
-        }
-
-        case 3:{
-
-        }
-
-        case 4:{
-
-        }
-
-
+    cout << "What would you like to do?" << endl
+         << "1.CREATE YOUR OWN PLAYLIST" << endl
+         << "2.ADD SONGS TO YOUR PLAYLIST" << endl
+         << "3.DELETE SONGS FROM YOUR PLAYLIST" << endl
+         << "4.VIEW SONGS IN YOUR PLAYLIST" << endl
+         << "5.PLAY A SONG FROM PLAYLIST" << endl
+         << "6.PLAY NEXT SONG" << endl
+         << "7.PLAY PREVIOUS SONG" << endl
+         << "8.PLAY SONGS FROM YOUR OWN PLAYLIST ON LOOP" << "9.VIEW RECENTLY PLAYED SONGS" << endl;
+    cin >> choice;
+    switch (choice)
+    {
+    case 1:
+    {
     }
-     
+
+    case 2:
+    {
+    }
+
+    case 3:
+    {
+    }
+
+    case 4:
+    {
+    }
+    }
 }
-
-// int main() {
-//     Playlist pl;
-//     cout<<"WELCOME TO MINI-SPOTIFY!!"<<endl;
-//     cout<<"OUR PLAYLIST!"<<endl;
-//     char role;
-//     cout<<"What is your role?\n1.Enter 1 for Admin\n2.Enter 2 for User";
-//     cin>>role;
-//     switch(role){
-//         case 'A':{
-//             string Correctpassword="$suhani.31";
-//             string password;
-//             cout<<"Enter password";
-//             cin>>password;
-//             int i=1;
-//             while(i<=3){
-//             if(password==Correctpassword){
-
-//                 break;
-//             }
-//             else{
-//                 cout<<"Enter valid password!"<<endl;
-//                 i++;
-//             }
-//         }
-//         cout<<"SESSION SUSPENDED!!"<<endl;
-//         }
-
-//         case 'U':{
-
-//         }
-//     }
-
-// }
