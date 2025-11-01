@@ -51,7 +51,7 @@ public:
         {
             Songs *nptr;
             nptr = head;
-            while (nptr->next != NULL)
+            while (nptr->next != head)
             {
                 nptr = nptr->next;
             }
