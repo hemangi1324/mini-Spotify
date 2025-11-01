@@ -87,21 +87,18 @@ public:
             {
                 root = userNode;
                 userNode->next=root;
+                userNode->prev=root;
                 cout << "Added at 1st" << endl;
             }
             else
             {
                 Songs *temp;
-                temp = root;
-                while (temp->next != root)
-                {
-                    temp = temp->next;
-                }
+                temp = root->prev;
 
                 userNode->prev = temp;
-                userNode->next = temp->next;
-                nptr->next->prev=userNode;
+                userNode->next = root;
                 temp->next=userNode;
+                root->prev=userNode;
                 cout << "Added!!" << endl;
             }
         }
@@ -112,27 +109,82 @@ public:
         }
     }
 
-    void deleteSongFromPlaylist(string name, Songs* userPl){
-        Songs* currNode;
-        currNode=userPl;
-        int found=0;
-        while(currNode!=NULL){
-            if(currNode->title==name){
-                found=1;
-                break;
-            }
+//     void deleteSongFromPlaylist(string name, Songs* userPl){
+//         Songs* currNode;
+//         currNode=userPl;
+//         int found=0;
+//        while (true) { // circular traversal fix
+//         if (currNode->title == name) {
+//             found = 1;
+//             break;
+//         }
+//         currNode = currNode->next;
+//         if (currNode == userPl) break; // stop after full circle
+//     }
+// cout<<"hi"<<endl;
+
+//         if(found==1){
+//             if(currNode==userPl){//deletion at start
+//                 userPl=currNode->next;
+//                 userPl->prev=currNode->prev;
+//                 currNode->prev->next=userPl;
+//                 delete(currNode);
+//                 cout<<"FOUND AND DELETED"<<endl;
+//             }
+//             else{   //deletion any where!
+//                 currNode->prev->next=currNode->next;
+//                 currNode->next->prev=currNode->prev;
+//                 delete(currNode);
+//             }
+            
+//         }
+//         else{
+//             cout<<"This song does not exist in your Playlist!"<<endl;
+//         }
+//     }
+
+void deleteSongFromPlaylist(string name, Songs* userPl) {
+    Songs* currNode = userPl;
+    int found = 0;
+
+    // circular traversal (search)
+    while (true) {
+        if (currNode->title == name) {
+            found = 1;
+            break;
+        }
+        currNode = currNode->next;
+        if (currNode == userPl) break; // full circle done
+    }
+
+    if (found == 1) {
+        // ✅ handle single-node playlist
+        if (currNode->next == currNode) {
+            root = NULL;
+            delete currNode;
+            cout << "FOUND AND DELETED (playlist now empty)" << endl;
+            return;
         }
 
-        if(found=1){
-            currNode->prev->next=currNode->next;
-            currNode->next->prev=currNode->prev;
-            delete(currNode);
-            cout<<"Found and deleted!!"<<endl;
+        // ✅ deleting first node
+        if (currNode == root) {
+            root = currNode->next;
+            root->prev = currNode->prev;
+            currNode->prev->next = root;
+            delete currNode;
+            cout << "FOUND AND DELETED" << endl;
+        } 
+        else { // ✅ deleting middle/last node
+            currNode->prev->next = currNode->next;
+            currNode->next->prev = currNode->prev;
+            delete currNode;
+            cout << "FOUND AND DELETED" << endl;
         }
-        else{
-            cout<<"This song does not exist in your Playlist!"<<endl;
-        }
+    } 
+    else {
+        cout << "This song does not exist in your Playlist!" << endl;
     }
+}
 
 
 
@@ -204,6 +256,7 @@ int main()
     u.insertSongPlaylist("Maand", pl.head);
     u.insertSongPlaylist("Husn", pl.head);
     u.insertSongPlaylist("Hero", pl.head);
+    u.deleteSongFromPlaylist("Maand",pl.root);
     int choice;
     cout << "What would you like to do?" << endl
          << "1.CREATE YOUR OWN PLAYLIST" << endl
