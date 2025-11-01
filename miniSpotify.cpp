@@ -65,7 +65,7 @@ public:
         int found = 0;
         Songs *nptr;
         nptr = main;
-        while (nptr != NULL)
+        while (nptr != main)
         {
             if (nptr->title == name)
             {
@@ -91,12 +91,15 @@ public:
             {
                 Songs *temp;
                 temp = root;
-                while (temp->next != NULL)
+                while (temp->next != root)
                 {
                     temp = temp->next;
                 }
+
                 userNode->prev = temp;
-                temp->next = userNode;
+                userNode->next = temp->next;
+                nptr->next->prev=userNode;
+                temp->next=userNode;
                 cout << "Added!!" << endl;
             }
         }
@@ -106,6 +109,32 @@ public:
             cout << "No such song found!!";
         }
     }
+
+    void deleteSongFromPlaylist(string name, Songs* userPl){
+        Songs* currNode;
+        currNode=userPl;
+        int found=0;
+        while(currNode!=NULL){
+            if(currNode->title==name){
+                found=1;
+                break;
+            }
+        }
+
+        if(found=1){
+            currNode->prev->next=currNode->next;
+            currNode->next->prev=currNode->prev;
+            delete(currNode);
+            cout<<"Found and deleted!!"<<endl;
+        }
+        else{
+            cout<<"This song does not exist in your Playlist!"<<endl;
+        }
+    }
+
+
+
+
     void display()
     {
         Songs *nptr;
@@ -143,7 +172,6 @@ int main()
     u.insertSongPlaylist("Maand", pl.head);
     u.insertSongPlaylist("Husn", pl.head);
     u.insertSongPlaylist("Hero", pl.head);
-
     int choice;
     cout << "What would you like to do?" << endl
          << "1.CREATE YOUR OWN PLAYLIST" << endl
@@ -153,7 +181,8 @@ int main()
          << "5.PLAY A SONG FROM PLAYLIST" << endl
          << "6.PLAY NEXT SONG" << endl
          << "7.PLAY PREVIOUS SONG" << endl
-         << "8.PLAY SONGS FROM YOUR OWN PLAYLIST ON LOOP" << "9.VIEW RECENTLY PLAYED SONGS" << endl;
+         << "8.PLAY SONGS FROM YOUR OWN PLAYLIST ON LOOP"<<endl
+         << "9.VIEW RECENTLY PLAYED SONGS" << endl;
     cin >> choice;
     switch (choice)
     {
