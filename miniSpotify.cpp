@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <unistd.h>
+#include<stack>
 using namespace std;
 
 class Songs
@@ -25,6 +26,7 @@ public:
 class Library
 {
 public:
+    stack<Songs*> st;
     Songs *head;
     Songs *root;
 
@@ -205,6 +207,7 @@ public:
     {
         cout << "Playing the song :" << nptr->title << endl;
         sleep(nptr->duration);
+        st.push(nptr);
         nptr = nptr->prev;
     }
 }
@@ -235,6 +238,7 @@ void playforwardloop(string name)
     {
            cout << "Playing the song :" << nptr->title << endl;
         sleep(nptr->duration);
+        st.push(nptr);
         nptr = nptr->next;
     }
 }
@@ -248,6 +252,12 @@ void disp(){
         if(currNode==root) break;
     }
     cout<< endl;
+}
+
+void Recentsong(){
+    Songs *recent = st.top();
+    st.pop();
+    cout<<"The recent song you played is:"<<recent->title<<endl;
 }
     
 };
