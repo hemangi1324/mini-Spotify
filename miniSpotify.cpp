@@ -76,6 +76,16 @@ public:
             }
             nptr = nptr->next;
         }
+
+        // Songs* check = root;
+        // while(check->next!=root){
+        //     if(check->title==name){
+        //         cout<<"SONG ALREADY EXISTS!!"<<endl;
+        //         return;
+        //     }
+        //     check=check->next;
+        // }
+
         if (found == 1)
         {
             Songs *userNode;
@@ -103,42 +113,9 @@ public:
         else
         {
             cout << "No such song found!!" << endl;
+            return;
         }
     }
-
-    //     void deleteSongFromPlaylist(string name, Songs* userPl){
-    //         Songs* currNode;
-    //         currNode=userPl;
-    //         int found=0;
-    //        while (true) { // circular traversal fix
-    //         if (currNode->title == name) {
-    //             found = 1;
-    //             break;
-    //         }
-    //         currNode = currNode->next;
-    //         if (currNode == userPl) break; // stop after full circle
-    //     }
-    // cout<<"hi"<<endl;
-
-    //         if(found==1){
-    //             if(currNode==userPl){//deletion at start
-    //                 userPl=currNode->next;
-    //                 userPl->prev=currNode->prev;
-    //                 currNode->prev->next=userPl;
-    //                 delete(currNode);
-    //                 cout<<"FOUND AND DELETED"<<endl;
-    //             }
-    //             else{   //deletion any where!
-    //                 currNode->prev->next=currNode->next;
-    //                 currNode->next->prev=currNode->prev;
-    //                 delete(currNode);
-    //             }
-
-    //         }
-    //         else{
-    //             cout<<"This song does not exist in your Playlist!"<<endl;
-    //         }
-    //     }
 
     void deleteSongFromPlaylist(string name, Songs *userPl)
     {
@@ -160,7 +137,7 @@ public:
 
         if (found == 1)
         {
-            // ✅ handle single-node playlist
+            //  handle single-node playlist
             if (currNode->next == currNode)
             {
                 root = NULL;
@@ -169,7 +146,7 @@ public:
                 return;
             }
 
-            // ✅ deleting first node
+            //  deleting first node
             if (currNode == root)
             {
                 root = currNode->next;
@@ -179,7 +156,7 @@ public:
                 cout << "FOUND AND DELETED" << endl;
             }
             else
-            { // ✅ deleting middle/last node
+            { //  deleting middle/last node
                 currNode->prev->next = currNode->next;
                 currNode->next->prev = currNode->prev;
                 delete currNode;
@@ -243,7 +220,7 @@ public:
         }
     }
 
-    void disp()
+    void displayfromPlaylist()
     {
         Songs *currNode;
         currNode = root;
@@ -262,6 +239,48 @@ public:
         Songs *recent = st.top();
         st.pop();
         cout << "The recent song you played is:" << recent->title << endl;
+    }
+
+    void NextSong()
+    {
+        Songs *nextS = st.top()->next;
+        cout << "Playing " << nextS->title;
+        sleep(nextS->duration);
+    }
+
+    void PreviousSong()
+    {
+        Songs *prevS = st.top()->prev;
+        cout << "Playing " << prevS->title << endl;
+        sleep(prevS->duration);
+    }
+
+    void play(string name)
+    {
+        Songs *tobeplayed = root;
+        int found = 0;
+        while (tobeplayed->next != root)
+        {
+            if (tobeplayed->title == name)
+            {
+                found = 1;
+                cout << "Playingg " << tobeplayed->title << ".....";
+                sleep(tobeplayed->duration);
+                return;
+            }
+            tobeplayed=tobeplayed->next;
+        }
+        if (tobeplayed->title == name)
+            {
+                found = 1;
+                cout << "Playingg " << tobeplayed->title << ".....";
+                sleep(tobeplayed->duration);
+                return;
+            }
+        if (found == 0)
+        {
+            cout << "No such song found to be played :(" << endl;
+        }
     }
 };
 
@@ -283,7 +302,7 @@ int main()
     u.insertSongLibrary("Pal Pal Dil Ke Pass", 9.24, "Kishor Kumar");
     u.insertSongLibrary("Om Namo Bhagavate vasudevaya", 4.10, "Sam C.S.");
     u.insertSongLibrary("Tu hi tu hai", 4.10, "suh");
-    cout << "--------------------------------------------------------------WELCOME TO OUR MINI SPOTIFY--------------------------------------------------------------" << endl;
+    cout << "-------------------------------------------------------------WELCOME TO OUR MINI SPOTIFY--------------------------------------------------------------" << endl;
     cout << "Good Vibes Start Here...." << endl;
     u.display();
 
@@ -298,19 +317,10 @@ int main()
     // u.deleteSongFromPlaylist("herr",u.root);
     // u.disp();
     int choice;
-    cout << "What would you like to do?" << endl
-         << "1. Exit SPOTIFY" << endl
-         << "2.ADD SONGS TO YOUR PLAYLIST" << endl
-         << "3.DELETE SONGS FROM YOUR PLAYLIST" << endl
-         << "4.VIEW SONGS IN YOUR PLAYLIST" << endl
-         << "5.PLAY A SONG FROM PLAYLIST" << endl
-         << "6.PLAY NEXT SONG" << endl
-         << "7.PLAY PREVIOUS SONG" << endl
-         << "8.PLAY SONGS FROM YOUR OWN PLAYLIST ON LOOP" << endl
-         << "9.VIEW RECENTLY PLAYED SONGS" << endl;
-    int flag = 1;
+
     int n;
-    cout << "1.CREATE YOUR OWN PLAYLIST FROM OUR SONGS" << endl;
+    cout << "\n\n--------------------------------CREATE YOUR OWN PLAYLIST FROM OUR SONGS--------------------------------------\n\n"
+         << endl;
     cout << "Enter number of songs you want in your playlist:";
     cin >> n;
     cin.ignore();
@@ -321,6 +331,21 @@ int main()
         getline(cin, arr[i]);
         u.insertSongPlaylist(arr[i]);
     }
+
+    cout << "\n\n-------------------------------------WHAT WOULD YOU LIKE TO DO---------------------------------" << endl;
+
+    cout << endl
+         << "1. Exit SPOTIFY" << endl
+         << "2.ADD SONGS TO YOUR PLAYLIST" << endl
+         << "3.DELETE SONGS FROM YOUR PLAYLIST" << endl
+         << "4.VIEW SONGS IN YOUR PLAYLIST" << endl
+         << "5.PLAY A SONG FROM PLAYLIST" << endl
+         << "6.PLAY NEXT SONG" << endl
+         << "7.PLAY PREVIOUS SONG" << endl
+         << "8.PLAY SONGS FROM YOUR OWN PLAYLIST ON LOOP" << endl
+         << "9.VIEW RECENTLY PLAYED SONGS" << endl;
+    int flag = 1;
+    
     while (flag)
     {
         cout << "Enter your choice number here:";
@@ -357,20 +382,32 @@ int main()
         case 4:
         {
             cout << "YOUR PLAYLIST!! :)" << endl;
-            u.disp();
+            u.displayfromPlaylist();
             break;
         }
 
         case 5:
         {
+            string song;
+            cout << "Enter the song you want to play:";
+            getline(cin, song);
+            u.play(song);
+            cout<<endl;
+            break;
         }
 
         case 6:
         {
+            cout << "Playing song previous to : " << u.st.top()->title << endl;
+            u.PreviousSong();
+            break;
         }
 
         case 7:
         {
+            cout << "Playing song next to : " << u.st.top()->title << endl;
+            u.NextSong();
+            break;
         }
 
         case 8:
