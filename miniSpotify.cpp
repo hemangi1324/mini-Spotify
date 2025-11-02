@@ -77,16 +77,25 @@ public:
             nptr = nptr->next;
         }
 
-        // Songs* check = root;
-        // while(check->next!=root){
-        //     if(check->title==name){
-        //         found=2;
-        //         cout<<"SONG ALREADY EXISTS!!"<<endl;
-        //         break;
-        //     }
-        //     check=check->next;
-        // }
+        Songs *check = root;
+        if(root!=NULL){
+        while (check->next != root)
+        {
+            if (check->title == name)
+            {
+              
+                cout << "SONG ALREADY EXISTS!!" << endl;
+                return;
+            }
+            check = check->next;
+        }
 
+        if (check->title == name)
+        {
+            cout << "SONG ALREADY EXISTS!!" << endl;
+            return;
+        }
+    }
         if (found == 1)
         {
             Songs *userNode;
@@ -111,7 +120,7 @@ public:
             }
         }
 
-        else if(found==0)
+        else if (found == 0)
         {
             cout << "No such song found!!" << endl;
             return;
@@ -259,8 +268,9 @@ public:
     void play(string name)
     {
 
-        if(root==NULL){
-            cout<<"Your playlist is empty!!"<<endl;
+        if (root == NULL)
+        {
+            cout << "Your playlist is empty!!" << endl;
             return;
         }
         Songs *tobeplayed = root;
@@ -275,16 +285,16 @@ public:
                 sleep(tobeplayed->duration);
                 return;
             }
-            tobeplayed=tobeplayed->next;
+            tobeplayed = tobeplayed->next;
         }
         if (tobeplayed->title == name)
-            {
-                found = 1;
-                st.push(tobeplayed);
-                cout << "Playingg " << tobeplayed->title << ".....";
-                sleep(tobeplayed->duration);
-                return;
-            }
+        {
+            found = 1;
+            st.push(tobeplayed);
+            cout << "Playingg " << tobeplayed->title << ".....";
+            sleep(tobeplayed->duration);
+            return;
+        }
         if (found == 0)
         {
             cout << "No such song found to be played :(" << endl;
@@ -353,7 +363,7 @@ int main()
          << "8.PLAY SONGS FROM YOUR OWN PLAYLIST ON LOOP" << endl
          << "9.VIEW RECENTLY PLAYED SONGS" << endl;
     int flag = 1;
-    
+
     while (flag)
     {
         cout << "Enter your choice number here:";
@@ -400,7 +410,7 @@ int main()
             cout << "Enter the song you want to play:";
             getline(cin, song);
             u.play(song);
-            cout<<endl;
+            cout << endl;
             break;
         }
 
