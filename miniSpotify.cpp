@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <unistd.h>
-#include<stack>
+#include <stack>
 using namespace std;
 
 class Songs
@@ -26,7 +26,7 @@ public:
 class Library
 {
 public:
-    stack<Songs*> st;
+    stack<Songs *> st;
     Songs *head;
     Songs *root;
 
@@ -102,7 +102,7 @@ public:
 
         else
         {
-            cout << "No such song found!!"<<endl;
+            cout << "No such song found!!" << endl;
         }
     }
 
@@ -192,82 +192,78 @@ public:
         }
     }
 
-
-
     void playbackwardloop(string name)
-{
-    Songs *nptr;
-    nptr = root;
-    while (nptr->title != name)
     {
-        nptr = nptr->next;
-    }
-    Songs *curr = nptr->next;
-    while (nptr != NULL && nptr != curr)
-    {
-        cout << "Playing the song :" << nptr->title << endl;
-        sleep(nptr->duration);
-        st.push(nptr);
-        nptr = nptr->prev;
-    }
-}
+        Songs *nptr;
+        nptr = root;
+        while (nptr->title != name)
+        {
+            nptr = nptr->next;
+        }
+        Songs *curr = nptr->next;
+        while (nptr != NULL && nptr != curr)
+        {
+            cout << "Playing the song :" << nptr->title << endl;
+            sleep(nptr->duration);
+            st.push(nptr);
+            nptr = nptr->prev;
+        }
 
-void display()
-{
-    Songs *nptr;
-    nptr = head;
-    int cnt = 1;
-    while (nptr != NULL)
-    {
-        cout << cnt << " . " << nptr->title << endl;
-        cnt++;
-        nptr = nptr->next;
+        cout << "LOOP ENDEDD!!" << endl;
     }
-}
 
-void playforwardloop(string name)
-{
-    Songs *nptr;
-    nptr = root;
-    while (nptr->title != name)
+    void display()
     {
-        nptr = nptr->next;
+        Songs *nptr;
+        nptr = head;
+        int cnt = 1;
+        while (nptr != NULL)
+        {
+            cout << cnt << " . " << nptr->title << endl;
+            cnt++;
+            nptr = nptr->next;
+        }
     }
-    Songs *curr = nptr->prev;
-    while (curr != nptr)
+
+    void playforwardloop(string name)
     {
-           cout << "Playing the song :" << nptr->title << endl;
-        sleep(nptr->duration);
-        st.push(nptr);
-        nptr = nptr->next;
+        Songs *nptr;
+        nptr = root;
+        while (nptr->title != name)
+        {
+            nptr = nptr->next;
+        }
+        Songs *curr = nptr->prev;
+        while (curr != nptr)
+        {
+            cout << "Playing the song :" << nptr->title << endl;
+            sleep(nptr->duration);
+            st.push(nptr);
+            nptr = nptr->next;
+        }
     }
-}
 
-void disp(){
-    Songs* currNode;
-    currNode=root;
-    while(true){
-        cout<<currNode->title<<"  ";
-        currNode=currNode->next;
-        if(currNode==root) break;
+    void disp()
+    {
+        Songs *currNode;
+        currNode = root;
+        while (true)
+        {
+            cout << currNode->title << "  ";
+            currNode = currNode->next;
+            if (currNode == root)
+                break;
+        }
+        cout << endl;
     }
-    cout<< endl;
-}
 
-void Recentsong(){
-    Songs *recent = st.top();
-    st.pop();
-    cout<<"The recent song you played is:"<<recent->title<<endl;
-}
-    
+    void Recentsong()
+    {
+        Songs *recent = st.top();
+        st.pop();
+        cout << "The recent song you played is:" << recent->title << endl;
+    }
 };
-
-
-
-
-
-
-
 
 int main()
 {
@@ -290,6 +286,7 @@ int main()
     cout << "--------------------------------------------------------------WELCOME TO OUR MINI SPOTIFY--------------------------------------------------------------" << endl;
     cout << "Good Vibes Start Here...." << endl;
     u.display();
+
     // u.insertSongPlaylist("Maand");
     // u.insertSongPlaylist("Husn");
     // u.insertSongPlaylist("Baarishein");
@@ -302,8 +299,7 @@ int main()
     // u.disp();
     int choice;
     cout << "What would you like to do?" << endl
-        <<"0. Exit SPOTIFY"<<endl
-         << "1.CREATE YOUR OWN PLAYLIST" << endl
+         << "1. Exit SPOTIFY" << endl
          << "2.ADD SONGS TO YOUR PLAYLIST" << endl
          << "3.DELETE SONGS FROM YOUR PLAYLIST" << endl
          << "4.VIEW SONGS IN YOUR PLAYLIST" << endl
@@ -312,90 +308,101 @@ int main()
          << "7.PLAY PREVIOUS SONG" << endl
          << "8.PLAY SONGS FROM YOUR OWN PLAYLIST ON LOOP" << endl
          << "9.VIEW RECENTLY PLAYED SONGS" << endl;
-    while(true){
-    cout<<"Enter your choice number here:";
-    cin >> choice;
-   switch (choice)
+    int flag = 1;
+    int n;
+    cout << "1.CREATE YOUR OWN PLAYLIST FROM OUR SONGS" << endl;
+    cout << "Enter number of songs you want in your playlist:";
+    cin >> n;
+    cin.ignore();
+    string arr[n];
+    for (int i = 0; i < n; i++)
     {
-    case 1:
+        cout << "Enter song:";
+        getline(cin, arr[i]);
+        u.insertSongPlaylist(arr[i]);
+    }
+    while (flag)
     {
-        int n;
-        cout << "Enter number of songs you want in your playlist:";
-        cin >> n;
+        cout << "Enter your choice number here:";
+        cin >> choice;
         cin.ignore();
-        string arr[n];
-        for (int i = 0; i < n; i++)
+        switch (choice)
         {
-            cout<<"Enter song:";
-            getline(cin,arr[i]);
-            u.insertSongPlaylist(arr[i]);
-        }
-        break;
-    }
-
-    case 2:
-    {
-        string s;
-        cout << "Enter the song name you want to add:";
-        getline(cin,s);
-        u.insertSongPlaylist(s);
-        break;
-    }
-
-    case 3:
-    {
-        string str;
-        cout << "Enter a song name you want to delete:";
-        getline(cin,str);
-        u.deleteSongFromPlaylist(str,u.root);
-        break;
-    }
-
-    case 4:
-    {
-        cout<<"YOUR PLAYLIST!! :)"<<endl;
-        u.disp();
-
-    }
-
-    case 5:
-    {
-    }
-
-    case 6:
-    {
-    }
-
-    case 7:
-    {
-    }
-
-    case 8:
-    {
-        int n;
-        cout << "Do you want to play the playlist 1.forward or 2.backward?";
-        cin >> n;
-        string song;
-        cout << "From which song do you want to play?";
-        getline(cin,song);
-        if (n == 1)
+        case 1:
         {
-            u.playforwardloop(song);
+            cout << "Exiting Spotify......" << endl;
+            flag = 0;
+            break;
         }
-        else
+
+        case 2:
         {
-            u.playbackwardloop(song);
+            string s;
+            cout << "Enter the song name you want to add:";
+            getline(cin, s);
+            u.insertSongPlaylist(s);
+            break;
         }
-        break;
+
+        case 3:
+        {
+
+            string str;
+            cout << "Enter a song name you want to delete:";
+            getline(cin, str);
+            u.deleteSongFromPlaylist(str, u.root);
+            break;
+        }
+
+        case 4:
+        {
+            cout << "YOUR PLAYLIST!! :)" << endl;
+            u.disp();
+            break;
+        }
+
+        case 5:
+        {
+        }
+
+        case 6:
+        {
+        }
+
+        case 7:
+        {
+        }
+
+        case 8:
+        {
+            int n;
+            cout << "Do you want to play the playlist 1.forward or 2.backward?";
+            cin >> n;
+            cin.ignore();
+            string song;
+            cout << "From which song do you want to play?";
+            getline(cin, song);
+            if (n == 1)
+            {
+                u.playforwardloop(song);
+            }
+            else
+            {
+                u.playbackwardloop(song);
+            }
+            break;
+        }
+        case 9:
+        {
+            u.Recentsong();
+            break;
+        }
+        default:
+        {
+            cout << "Please enter a valid operaion!!!" << endl;
+        }
+        }
     }
-    case 9:
-    {
-        u.Recentsong();
-        break;
-    }
-    default:
-    {
-        cout<<"Please enter a valid operaion!!!"<<endl;
-    }
-    }
+
+    cout << "SPOTIFY TERMINATED!!!" << endl;
 }
