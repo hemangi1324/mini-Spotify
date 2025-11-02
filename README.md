@@ -1,4 +1,4 @@
-**Title: Mini - Spotify **
+**Title: Mini - Spotify** 
 
 **Problem Statement:** Implement a mini Spotify using doubly circular linked list and stack.
 
@@ -34,8 +34,9 @@ Contains all available songs (stored using a singly linked list).
 Created by the user from songs in the library, implemented using a Doubly Circular Linked List for smooth forward and backward navigation.
 Additionally, a Stack data structure is used to store and retrieve recently played songs.
  
-**Data structure used: **         
-Doubly Circular Linked List
+**Data structure used:**
+
+**Doubly Circular Linked List**
 Used to store the playlist songs, where each node contains:
 1.	Song title
 2.	Duration
@@ -56,48 +57,50 @@ Key Functionalities and Logic
 1.	Insert Song into Library
     •	Create a new Songs node.
     •	Append it at the end of the singly linked list.
-2.	Add Song to Playlist
+3.	Add Song to Playlist
     •	Search the song in the library.
     •	If found, create a duplicate node and insert it into the doubly circular playlist.
     •	Adjust both next and prev pointers to maintain circular links.
-3.	Delete Song from Playlist
+4.	Delete Song from Playlist
     •	Search by title in the circular playlist.
     •	Handle 3 cases:
         	Deleting the only song → playlist becomes empty
         	Deleting the first song → update root
         	Deleting any middle/last song → adjust neighboring links
-4.	Play Song
+5.	Play Song
     	Traverse the playlist circularly
     	Use sleep(duration) to simulate playback time.
     	Push played song onto the stack.
-5.	Play Next Song
+6.	Play Next Song
     	Access next node of top of stack
     	Use sleep(duration) to simulate playback time.
-6.	Play Previous Song
+7.	Play Previous Song
     	Access previous node of top of stack
     	Use sleep(duration) to simulate playback time.
-7.	Play Songs (Forward or Backward Loop)
+8.	Play Songs (Forward or Backward Loop)
     •	Traverse the playlist circularly.
     •	Use sleep(duration) to simulate playback time.
     •	Push each played song onto the stack.
-8.	Recently Played Song
+9.	Recently Played Song
     •	Pop the top element from the stack to display the most recently played track.
 
 	
-**
-Class Diagram**
 
-          ** Songs**
+**Class Diagram**
+
+          Songs
  - title: string        
  - duration: float      
  - singer: string       
  - prev: Songs*         
  - next: Songs*
  + Songs(name,time, s)
+   
                    ▲
                    │
                    │ contains
                    ▼
+   
            **Library**
 - head: Songs*             
 - root: Songs*             
@@ -115,20 +118,20 @@ Class Diagram**
 +Play()
 
 **Test cases:**
-**No.		Input / Operation		                             Expected Output	**
+**No.	--	Input / Operation		       --                      Expected Output	**
 					
-TC1		Add 3 songs to library		                         Songs added successfully	
+TC1	 --	Add 3 songs to library		        --                 Songs added successfully	
 					
-TC2		Create playlist of 2 songs ("Maand", "Husn")		   Playlist displays both songs circularly	
+TC2	 --	Create playlist of 2 songs ("Maand", "Husn")	--	   Playlist displays both songs circularly	
 					
-TC3		Delete song "Husn" from playlist		               Song deleted, list updates correctly	
+TC3	 -- 	Delete song "Husn" from playlist		   --            Song deleted, list updates correctly	
 					
-TC4		Play playlist forward		                           Songs play in sequence with delay	
+TC4	 --	Play playlist forward		        --                   Songs play in sequence with delay	
 TC5		Play playlist backward		                         Songs play in reverse order	
 					
-TC6		Play recent song		                               Displays last played track	
+TC6	--	Play recent song		              --                 Displays last played track	
 					
-TC7		Delete non-existent song		                       Displays error message "This song does not exist in your Playlist!"	
+TC7	 -- 	Delete non-existent song		      --                 Displays error message "This song does not exist in your Playlist!"	
 					
 
 **Application:**
