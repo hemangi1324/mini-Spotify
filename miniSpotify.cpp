@@ -34,11 +34,6 @@ public:
         root = NULL;
     }
 
-    Songs *getHead()
-    {
-        return head;
-    }
-
     void insertSongLibrary(string title, float duration, string singer)
     {
         Songs *newnode;
@@ -61,11 +56,11 @@ public:
         }
     }
 
-    void insertSongPlaylist(string name, Songs *main)
+    void insertSongPlaylist(string name)
     {
         int found = 0;
         Songs *nptr;
-        nptr = main;
+        nptr = head;
         while (nptr != NULL)
         {
             if (nptr->title == name)
@@ -267,7 +262,7 @@ int main()
 {
     Library pl;
     Library u;
-    Library user;
+    // Library user;
     pl.insertSongLibrary("Maand", 5.8, "Suhani");
     pl.insertSongLibrary("Jhol", 6.1, "Maanu");
     pl.insertSongLibrary("Sahiba", 5.2, "Aditya Rikhari");
@@ -284,9 +279,9 @@ int main()
     cout << "--------------------------------------------------------------WELCOME TO OUR MINI SPOTIFY--------------------------------------------------------------" << endl;
     cout << "Good Vibes Start Here...." << endl;
     pl.display();
-    u.insertSongPlaylist("Maand", pl.head);
-    u.insertSongPlaylist("Husn", pl.head);
-    u.insertSongPlaylist("Hero", pl.head);
+    u.insertSongPlaylist("Maand");
+    u.insertSongPlaylist("Husn");
+    u.insertSongPlaylist("Hero");
     u.disp();
     u.deleteSongFromPlaylist("Maand", pl.root);
     int choice;
@@ -301,7 +296,7 @@ int main()
          << "8.PLAY SONGS FROM YOUR OWN PLAYLIST ON LOOP" << endl
          << "9.VIEW RECENTLY PLAYED SONGS" << endl;
     cin >> choice;
-    switch (choice)
+   /* switch (choice)
     {
     case 1:
     {
@@ -312,7 +307,7 @@ int main()
         for (int i = 0; i < n; i++)
         {
             cin >> arr[i];
-            u.insertSongPlaylist(arr[i], pl.head);
+            u.insertSongPlaylist(arr[i]);
         }
     }
 
@@ -321,7 +316,7 @@ int main()
         string s;
         cout << "Enter the song name you want to add:";
         cin >> s;
-        u.insertSongPlaylist(s, pl.head);
+        u.insertSongPlaylist(s);
     }
 
     case 3:
@@ -329,7 +324,7 @@ int main()
         string str;
         cout << "Enter a song name you want to delete:";
         cin >> str;
-        u.deleteSongFromPlaylist(str, u.root);
+        u.deleteSongFromPlaylist(str,pl.root);
     }
 
     case 4:
@@ -368,5 +363,5 @@ int main()
     case 9:
     {
     }
-    }
+    }*/
 }
