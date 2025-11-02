@@ -149,9 +149,3 @@ By completing this project, we gained:
 •	Strong understanding of linked list operations.
 •	Practical exposure to data structure integration.
 •	Problem-solving and debugging experience in C++.
-
-
-
-
-Screen shots of outputs:     
-
