@@ -337,7 +337,7 @@ int main()
     {
         string s;
         cout << "Enter the song name you want to add:";
-        cin >> s;
+        getline(cin,s);
         u.insertSongPlaylist(s);
         break;
     }
@@ -346,7 +346,7 @@ int main()
     {
         string str;
         cout << "Enter a song name you want to delete:";
-        cin >> str;
+        getline(cin,str);
         u.deleteSongFromPlaylist(str,u.root);
         break;
     }
@@ -377,7 +377,7 @@ int main()
         cin >> n;
         string song;
         cout << "From which song do you want to play?";
-        cin >> song;
+        getline(cin,song);
         if (n == 1)
         {
             u.playforwardloop(song);
@@ -390,6 +390,12 @@ int main()
     }
     case 9:
     {
+        u.Recentsong();
+        break;
+    }
+    default:
+    {
+        cout<<"Please enter a valid operaion!!!"<<endl;
     }
     }
 }
