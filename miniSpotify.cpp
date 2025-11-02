@@ -100,7 +100,7 @@ public:
 
         else
         {
-            cout << "No such song found!!";
+            cout << "No such song found!!"<<endl;
         }
     }
 
@@ -231,9 +231,9 @@ void playforwardloop(string name)
         nptr = nptr->next;
     }
     Songs *curr = nptr->prev;
-    while (nptr != NULL && nptr != curr)
+    while (curr != nptr)
     {
-        cout << "Playing the song :" << nptr->title << endl;
+           cout << "Playing the song :" << nptr->title << endl;
         sleep(nptr->duration);
         nptr = nptr->next;
     }
@@ -280,12 +280,16 @@ int main()
     cout << "--------------------------------------------------------------WELCOME TO OUR MINI SPOTIFY--------------------------------------------------------------" << endl;
     cout << "Good Vibes Start Here...." << endl;
     u.display();
-    u.insertSongPlaylist("Maand");
-    u.insertSongPlaylist("Husn");
-    u.insertSongPlaylist("Hero");
-    u.disp();
-    u.deleteSongFromPlaylist("Maand", u.root);
-    u.deleteSongFromPlaylist("herr",u.root);
+    // u.insertSongPlaylist("Maand");
+    // u.insertSongPlaylist("Husn");
+    // u.insertSongPlaylist("Baarishein");
+    // u.insertSongPlaylist("Paro");
+    // u.insertSongPlaylist("Mann Mera");
+    // u.insertSongPlaylist("Hero");
+    // u.disp();
+    // u.deleteSongFromPlaylist("Maand", u.root);
+    // u.deleteSongFromPlaylist("herr",u.root);
+    // u.disp();
     int choice;
     cout << "What would you like to do?" << endl
          << "1.CREATE YOUR OWN PLAYLIST" << endl
@@ -298,7 +302,7 @@ int main()
          << "8.PLAY SONGS FROM YOUR OWN PLAYLIST ON LOOP" << endl
          << "9.VIEW RECENTLY PLAYED SONGS" << endl;
     cin >> choice;
-   /* switch (choice)
+   switch (choice)
     {
     case 1:
     {
@@ -308,9 +312,11 @@ int main()
         string arr[n];
         for (int i = 0; i < n; i++)
         {
-            cin >> arr[i];
+            cout<<"Enter song:";
+            getline(cin,arr[i]);
             u.insertSongPlaylist(arr[i]);
         }
+        break;
     }
 
     case 2:
@@ -319,6 +325,7 @@ int main()
         cout << "Enter the song name you want to add:";
         cin >> s;
         u.insertSongPlaylist(s);
+        break;
     }
 
     case 3:
@@ -326,7 +333,8 @@ int main()
         string str;
         cout << "Enter a song name you want to delete:";
         cin >> str;
-        u.deleteSongFromPlaylist(str,pl.root);
+        u.deleteSongFromPlaylist(str,u.root);
+        break;
     }
 
     case 4:
@@ -361,9 +369,10 @@ int main()
         {
             u.playbackwardloop(song);
         }
+        break;
     }
     case 9:
     {
     }
-    }*/
+    }
 }
