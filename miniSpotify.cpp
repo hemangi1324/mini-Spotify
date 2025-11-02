@@ -2,11 +2,16 @@
 #include <string>
 #include <unistd.h>
 #include <stack>
+#include<windows.h>
+
 using namespace std;
 
+void setColor(int color) {
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+}
 class Songs
 {
-public:
+    public:
     string title;
     float duration;
     string singer;
@@ -194,15 +199,22 @@ class Library
 
     void display()
     {
+        
         Songs *nptr;
         nptr = head;
         int cnt = 1;
+        setColor(7);
+        
+        cout<<"Available Songs : "<<endl;
+        cout<<endl;
         while (nptr != NULL)
         {
+            setColor(13);
             cout << cnt << " . " << nptr->title << endl;
             cnt++;
             nptr = nptr->next;
         }
+        setColor(7);
     }
 
     void playforwardloop(string name)
@@ -232,11 +244,13 @@ class Library
         currNode = root;
         while (true)
         {
+            setColor(13);
             cout << currNode->title << "  ";
             currNode = currNode->next;
             if (currNode == root)
                 break;
         }
+        setColor(7);
         cout << endl;
     }
 
@@ -250,10 +264,14 @@ class Library
     void NextSong()
     {
         if(st.empty()){
+            setColor(12);
             cout<<"First play a song!!"<<endl;
+            setColor(7);
         }else{
             Songs *nextS = st.top()->next;
+            setColor(9);
             cout << "Playing " << nextS->title;
+            setColor(7);
             sleep(nextS->duration);
         }
     }
@@ -261,10 +279,14 @@ class Library
     void PreviousSong()
     {
         if(st.empty()){
+            setColor(12);
             cout<<"First play a song"<<endl;
+            setColor(7);
         }else{
             Songs *prevS = st.top()->prev;
+            setColor(9);
             cout << "Playing " << prevS->title << endl;
+            setColor(7);
             sleep(prevS->duration);
         }
     }
@@ -278,7 +300,9 @@ class Library
             if (tobeplayed->title == name)
             {
                 found = 1;
+                setColor(9);
                 cout << "Playingg " << tobeplayed->title << ".....";
+                setColor(7);
                 sleep(tobeplayed->duration);
                 return;
             }
@@ -287,13 +311,17 @@ class Library
         if (tobeplayed->title == name)
             {
                 found = 1;
+                setColor(9);
                 cout << "Playingg " << tobeplayed->title << ".....";
+                setColor(7);
                 sleep(tobeplayed->duration);
                 return;
             }
         if (found == 0)
         {
+            setColor(12);
             cout << "No such song found to be played :(" << endl;
+            setColor(7);
         }
     }
 };
@@ -316,8 +344,12 @@ int main()
     u.insertSongLibrary("Pal Pal Dil Ke Pass", 9.24, "Kishor Kumar");
     u.insertSongLibrary("Om Namo Bhagavate vasudevaya", 4.10, "Sam C.S.");
     u.insertSongLibrary("Tu hi tu hai", 4.10, "suh");
-    cout << "-------------------------------------------------------------WELCOME TO OUR MINI SPOTIFY--------------------------------------------------------------" << endl;
+    setColor(2);
+    cout<<endl<< "-------------------------------------------------------------WELCOME TO OUR MINI SPOTIFY--------------------------------------------------------------" << endl;
+    setColor(9);
     cout << "Good Vibes Start Here...." << endl;
+    setColor(7);
+    cout<<endl;
     u.display();
 
     // u.insertSongPlaylist("Maand");
@@ -333,21 +365,28 @@ int main()
     int choice;
 
     int n;
-    cout << "\n\n--------------------------------CREATE YOUR OWN PLAYLIST FROM OUR SONGS--------------------------------------\n\n"
+    setColor(2);
+    cout << "\n\n--------------------------------CREATE YOUR OWN PLAYLIST FROM OUR SONGS--------------------------------------\n"
          << endl;
+    setColor(7);
+    setColor(6);
     cout << "Enter number of songs you want in your playlist:";
+    setColor(7);
     cin >> n;
     cin.ignore();
     string arr[n];
     for (int i = 0; i < n; i++)
     {
+        setColor(14);
         cout << "Enter song:";
+        setColor(7);
         getline(cin, arr[i]);
         u.insertSongPlaylist(arr[i]);
     }
-
-    cout << "\n\n-------------------------------------WHAT WOULD YOU LIKE TO DO---------------------------------" << endl;
-
+    setColor(2);
+    cout << "\n-------------------------------------WHAT WOULD YOU LIKE TO DO---------------------------------" << endl;
+    setColor(7);
+    setColor(13);
     cout << endl
          << "1. Exit SPOTIFY" << endl
          << "2.ADD SONGS TO YOUR PLAYLIST" << endl
@@ -358,18 +397,24 @@ int main()
          << "7.PLAY PREVIOUS SONG" << endl
          << "8.PLAY SONGS FROM YOUR OWN PLAYLIST ON LOOP" << endl
          << "9.VIEW RECENTLY PLAYED SONGS" << endl;
+         setColor(7);
     int flag = 1;
     
     while (flag)
     {
+        setColor(14);
+        cout<<endl;
         cout << "Enter your choice number here:";
+        setColor(7);
         cin >> choice;
         cin.ignore();
         switch (choice)
         {
         case 1:
         {
+            setColor(12);
             cout << "Exiting Spotify......" << endl;
+            setColor(7);
             flag = 0;
             break;
         }
@@ -377,7 +422,9 @@ int main()
         case 2:
         {
             string s;
+            setColor(14);
             cout << "Enter the song name you want to add:";
+            setColor(7);
             getline(cin, s);
             u.insertSongPlaylist(s);
             break;
@@ -387,7 +434,9 @@ int main()
         {
 
             string str;
+            setColor(14);
             cout << "Enter a song name you want to delete:";
+            setColor(7);
             getline(cin, str);
             u.deleteSongFromPlaylist(str, u.root);
             break;
@@ -395,7 +444,9 @@ int main()
 
         case 4:
         {
-            cout << "YOUR PLAYLIST!! :)" << endl;
+            setColor(11);
+            cout << "\nYOUR PLAYLIST!! :)" << endl;
+            setColor(7);
             u.displayfromPlaylist();
             break;
         }
@@ -403,7 +454,9 @@ int main()
         case 5:
         {
             string song;
+            setColor(14);
             cout << "Enter the song you want to play:";
+            setColor(7);
             getline(cin, song);
             u.play(song);
             cout<<endl;
@@ -454,6 +507,7 @@ int main()
         }
         }
     }
-
+    setColor(2);
     cout << "SPOTIFY TERMINATED!!!" << endl;
+    setColor(7);
 }
