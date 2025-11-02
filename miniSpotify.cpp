@@ -280,6 +280,7 @@ class Library
         }else{
             Songs *nextS = st.top()->next;
             setColor(9);
+            st.push(nextS);
             cout << "Playing " << nextS->title;
             setColor(7);
             sleep(nextS->duration);
@@ -296,6 +297,7 @@ class Library
             Songs *prevS = st.top()->prev;
             setColor(9);
             cout << "Playing " << prevS->title << endl;
+            st.push(prevS);
             setColor(7);
             sleep(prevS->duration);
         }
@@ -316,12 +318,9 @@ class Library
             if (tobeplayed->title == name)
             {
                 found = 1;
-<<<<<<< HEAD
                 setColor(9);
-=======
-                st.push(tobeplayed);
->>>>>>> 9d6188c1f4a803da2bc6ddfe547acfc81df7db5c
                 cout << "Playingg " << tobeplayed->title << ".....";
+                st.push(tobeplayed);
                 setColor(7);
                 sleep(tobeplayed->duration);
                 return;
@@ -329,24 +328,15 @@ class Library
             tobeplayed = tobeplayed->next;
         }
         if (tobeplayed->title == name)
-<<<<<<< HEAD
             {
                 found = 1;
                 setColor(9);
                 cout << "Playingg " << tobeplayed->title << ".....";
+                st.push(tobeplayed);
                 setColor(7);
                 sleep(tobeplayed->duration);
                 return;
             }
-=======
-        {
-            found = 1;
-            st.push(tobeplayed);
-            cout << "Playingg " << tobeplayed->title << ".....";
-            sleep(tobeplayed->duration);
-            return;
-        }
->>>>>>> 9d6188c1f4a803da2bc6ddfe547acfc81df7db5c
         if (found == 0)
         {
             setColor(12);
@@ -374,17 +364,12 @@ int main()
     u.insertSongLibrary("Pal Pal Dil Ke Pass", 9.24, "Kishor Kumar");
     u.insertSongLibrary("Om Namo Bhagavate vasudevaya", 4.10, "Sam C.S.");
     u.insertSongLibrary("Tu hi tu hai", 4.10, "suh");
-<<<<<<< HEAD
     setColor(2);
     cout<<endl<< "-------------------------------------------------------------WELCOME TO OUR MINI SPOTIFY--------------------------------------------------------------" << endl;
     setColor(9);
     cout << "Good Vibes Start Here...." << endl;
     setColor(7);
     cout<<endl;
-=======
-    cout << "-------------------------------------------------------------WELCOME TO OUR MINI SPOTIFY--------------------------------------------------------------" << endl;
-    cout << "Good Vibes Start Here and Nowww...." << endl;
->>>>>>> 9d6188c1f4a803da2bc6ddfe547acfc81df7db5c
     u.display();
 
     // u.insertSongPlaylist("Maand");
@@ -500,6 +485,7 @@ int main()
 
         case 6:
         {
+    
             cout << "Playing song previous to : " << u.st.top()->title << endl;
             u.PreviousSong();
             break;
