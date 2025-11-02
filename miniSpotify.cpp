@@ -82,15 +82,25 @@ class Library
             nptr = nptr->next;
         }
 
-        // Songs* check = root;
-        // while(check->next!=root){
-        //     if(check->title==name){
-        //         cout<<"SONG ALREADY EXISTS!!"<<endl;
-        //         return;
-        //     }
-        //     check=check->next;
-        // }
+        Songs *check = root;
+        if(root!=NULL){
+        while (check->next != root)
+        {
+            if (check->title == name)
+            {
+              
+                cout << "SONG ALREADY EXISTS!!" << endl;
+                return;
+            }
+            check = check->next;
+        }
 
+        if (check->title == name)
+        {
+            cout << "SONG ALREADY EXISTS!!" << endl;
+            return;
+        }
+    }
         if (found == 1)
         {
             Songs *userNode;
@@ -115,7 +125,7 @@ class Library
             }
         }
 
-        else
+        else if (found == 0)
         {
             cout << "No such song found!!" << endl;
             return;
@@ -257,7 +267,7 @@ class Library
     void Recentsong()
     {
         Songs *recent = st.top();
-        st.pop();
+        // st.pop();
         cout << "The recent song you played is:" << recent->title << endl;
     }
 
@@ -293,6 +303,12 @@ class Library
 
     void play(string name)
     {
+
+        if (root == NULL)
+        {
+            cout << "Your playlist is empty!!" << endl;
+            return;
+        }
         Songs *tobeplayed = root;
         int found = 0;
         while (tobeplayed->next != root)
@@ -300,15 +316,20 @@ class Library
             if (tobeplayed->title == name)
             {
                 found = 1;
+<<<<<<< HEAD
                 setColor(9);
+=======
+                st.push(tobeplayed);
+>>>>>>> 9d6188c1f4a803da2bc6ddfe547acfc81df7db5c
                 cout << "Playingg " << tobeplayed->title << ".....";
                 setColor(7);
                 sleep(tobeplayed->duration);
                 return;
             }
-            tobeplayed=tobeplayed->next;
+            tobeplayed = tobeplayed->next;
         }
         if (tobeplayed->title == name)
+<<<<<<< HEAD
             {
                 found = 1;
                 setColor(9);
@@ -317,6 +338,15 @@ class Library
                 sleep(tobeplayed->duration);
                 return;
             }
+=======
+        {
+            found = 1;
+            st.push(tobeplayed);
+            cout << "Playingg " << tobeplayed->title << ".....";
+            sleep(tobeplayed->duration);
+            return;
+        }
+>>>>>>> 9d6188c1f4a803da2bc6ddfe547acfc81df7db5c
         if (found == 0)
         {
             setColor(12);
@@ -344,12 +374,17 @@ int main()
     u.insertSongLibrary("Pal Pal Dil Ke Pass", 9.24, "Kishor Kumar");
     u.insertSongLibrary("Om Namo Bhagavate vasudevaya", 4.10, "Sam C.S.");
     u.insertSongLibrary("Tu hi tu hai", 4.10, "suh");
+<<<<<<< HEAD
     setColor(2);
     cout<<endl<< "-------------------------------------------------------------WELCOME TO OUR MINI SPOTIFY--------------------------------------------------------------" << endl;
     setColor(9);
     cout << "Good Vibes Start Here...." << endl;
     setColor(7);
     cout<<endl;
+=======
+    cout << "-------------------------------------------------------------WELCOME TO OUR MINI SPOTIFY--------------------------------------------------------------" << endl;
+    cout << "Good Vibes Start Here and Nowww...." << endl;
+>>>>>>> 9d6188c1f4a803da2bc6ddfe547acfc81df7db5c
     u.display();
 
     // u.insertSongPlaylist("Maand");
@@ -393,13 +428,13 @@ int main()
          << "3.DELETE SONGS FROM YOUR PLAYLIST" << endl
          << "4.VIEW SONGS IN YOUR PLAYLIST" << endl
          << "5.PLAY A SONG FROM PLAYLIST" << endl
-         << "6.PLAY NEXT SONG" << endl
-         << "7.PLAY PREVIOUS SONG" << endl
+         << "6.PLAY PREVIOUS SONG" << endl
+         << "7.PLAY NEXT SONG" << endl
          << "8.PLAY SONGS FROM YOUR OWN PLAYLIST ON LOOP" << endl
          << "9.VIEW RECENTLY PLAYED SONGS" << endl;
          setColor(7);
     int flag = 1;
-    
+
     while (flag)
     {
         setColor(14);
@@ -459,7 +494,7 @@ int main()
             setColor(7);
             getline(cin, song);
             u.play(song);
-            cout<<endl;
+            cout << endl;
             break;
         }
 
