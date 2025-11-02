@@ -319,6 +319,7 @@ int main()
         int n;
         cout << "Enter number of songs you want in your playlist:";
         cin >> n;
+        cin.ignore();
         string arr[n];
         for (int i = 0; i < n; i++)
         {
@@ -349,6 +350,9 @@ int main()
 
     case 4:
     {
+        cout<<"YOUR PLAYLIST!! :)"<<endl;
+        u.disp();
+
     }
 
     case 5:
