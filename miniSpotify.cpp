@@ -302,6 +302,7 @@ int main()
     // u.disp();
     int choice;
     cout << "What would you like to do?" << endl
+        <<"0. Exit SPOTIFY"<<endl
          << "1.CREATE YOUR OWN PLAYLIST" << endl
          << "2.ADD SONGS TO YOUR PLAYLIST" << endl
          << "3.DELETE SONGS FROM YOUR PLAYLIST" << endl
@@ -311,6 +312,8 @@ int main()
          << "7.PLAY PREVIOUS SONG" << endl
          << "8.PLAY SONGS FROM YOUR OWN PLAYLIST ON LOOP" << endl
          << "9.VIEW RECENTLY PLAYED SONGS" << endl;
+    while(true){
+    cout<<"Enter your choice number here:";
     cin >> choice;
    switch (choice)
     {
