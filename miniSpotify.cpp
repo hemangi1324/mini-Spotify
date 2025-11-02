@@ -25,8 +25,8 @@ public:
 
 class Library
 {
-public:
-    stack<Songs *> st;
+    public:
+    stack<Songs *> st;     //stack which contains the pointers to stack objects
     Songs *head;
     Songs *root;
 
@@ -195,6 +195,9 @@ public:
             st.push(nptr);
             nptr = nptr->prev;
         }
+        cout << "Playing the song :" << nptr->title << endl;
+        sleep(nptr->duration);
+        st.push(nptr);
 
         cout << "LOOP ENDEDD!!" << endl;
     }
@@ -228,6 +231,9 @@ public:
             st.push(nptr);
             nptr = nptr->next;
         }
+        cout << "Playing the song :" << nptr->title << endl;
+        sleep(nptr->duration);
+        st.push(nptr);
     }
 
     void displayfromPlaylist()
@@ -253,16 +259,24 @@ public:
 
     void NextSong()
     {
-        Songs *nextS = st.top()->next;
-        cout << "Playing " << nextS->title;
-        sleep(nextS->duration);
+        if(st.empty()){
+            cout<<"First play a song!!"<<endl;
+        }else{
+            Songs *nextS = st.top()->next;
+            cout << "Playing " << nextS->title;
+            sleep(nextS->duration);
+        }
     }
 
     void PreviousSong()
     {
-        Songs *prevS = st.top()->prev;
-        cout << "Playing " << prevS->title << endl;
-        sleep(prevS->duration);
+        if(st.empty()){
+            cout<<"First play a song"<<endl;
+        }else{
+            Songs *prevS = st.top()->prev;
+            cout << "Playing " << prevS->title << endl;
+            sleep(prevS->duration);
+        }
     }
 
     void play(string name)
