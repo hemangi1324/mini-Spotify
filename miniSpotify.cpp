@@ -247,6 +247,7 @@ void disp(){
         currNode=currNode->next;
         if(currNode==root) break;
     }
+    cout<< endl;
 }
     
 };
@@ -260,30 +261,31 @@ void disp(){
 
 int main()
 {
-    Library pl;
+    // Library pl;
     Library u;
     // Library user;
-    pl.insertSongLibrary("Maand", 5.8, "Suhani");
-    pl.insertSongLibrary("Jhol", 6.1, "Maanu");
-    pl.insertSongLibrary("Sahiba", 5.2, "Aditya Rikhari");
-    pl.insertSongLibrary("Finding Her", 7.6, "Kushagra");
-    pl.insertSongLibrary("Paro", 6.65, "Aditya Rikhari");
-    pl.insertSongLibrary("Baarishein", 8.4, "Anuv Jain");
-    pl.insertSongLibrary("Jo Tum Mere Ho", 7.5, "Anuv Jain");
-    pl.insertSongLibrary("Husn", 3.8, "Anuv jain");
-    pl.insertSongLibrary("Line Without a Hook", 4.32, "Ricky Montgomery");
-    pl.insertSongLibrary("Mann Mera", 7.8, "Gajendra Verma");
-    pl.insertSongLibrary("Pal Pal Dil Ke Pass", 9.24, "Kishor Kumar");
-    pl.insertSongLibrary("Om Namo Bhagavate vasudevaya", 4.10, "Sam C.S.");
-    pl.insertSongLibrary("Tu hi tu hai", 4.10, "suh");
+    u.insertSongLibrary("Maand", 5.8, "Suhani");
+    u.insertSongLibrary("Jhol", 6.1, "Maanu");
+    u.insertSongLibrary("Sahiba", 5.2, "Aditya Rikhari");
+    u.insertSongLibrary("Finding Her", 7.6, "Kushagra");
+    u.insertSongLibrary("Paro", 6.65, "Aditya Rikhari");
+    u.insertSongLibrary("Baarishein", 8.4, "Anuv Jain");
+    u.insertSongLibrary("Jo Tum Mere Ho", 7.5, "Anuv Jain");
+    u.insertSongLibrary("Husn", 3.8, "Anuv jain");
+    u.insertSongLibrary("Line Without a Hook", 4.32, "Ricky Montgomery");
+    u.insertSongLibrary("Mann Mera", 7.8, "Gajendra Verma");
+    u.insertSongLibrary("Pal Pal Dil Ke Pass", 9.24, "Kishor Kumar");
+    u.insertSongLibrary("Om Namo Bhagavate vasudevaya", 4.10, "Sam C.S.");
+    u.insertSongLibrary("Tu hi tu hai", 4.10, "suh");
     cout << "--------------------------------------------------------------WELCOME TO OUR MINI SPOTIFY--------------------------------------------------------------" << endl;
     cout << "Good Vibes Start Here...." << endl;
-    pl.display();
+    u.display();
     u.insertSongPlaylist("Maand");
     u.insertSongPlaylist("Husn");
     u.insertSongPlaylist("Hero");
     u.disp();
-    u.deleteSongFromPlaylist("Maand", pl.root);
+    u.deleteSongFromPlaylist("Maand", u.root);
+    u.deleteSongFromPlaylist("herr",u.root);
     int choice;
     cout << "What would you like to do?" << endl
          << "1.CREATE YOUR OWN PLAYLIST" << endl
