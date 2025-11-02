@@ -25,8 +25,8 @@ public:
 
 class Library
 {
-public:
-    stack<Songs *> st;
+    public:
+    stack<Songs *> st;     //stack which contains the pointers to stack objects
     Songs *head;
     Songs *root;
 
