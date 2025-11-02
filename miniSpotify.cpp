@@ -311,7 +311,7 @@ int main()
     u.insertSongLibrary("Om Namo Bhagavate vasudevaya", 4.10, "Sam C.S.");
     u.insertSongLibrary("Tu hi tu hai", 4.10, "suh");
     cout << "-------------------------------------------------------------WELCOME TO OUR MINI SPOTIFY--------------------------------------------------------------" << endl;
-    cout << "Good Vibes Start Here...." << endl;
+    cout << "Good Vibes Start Here and Nowww...." << endl;
     u.display();
 
     // u.insertSongPlaylist("Maand");
