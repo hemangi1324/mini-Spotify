@@ -80,8 +80,9 @@ public:
         // Songs* check = root;
         // while(check->next!=root){
         //     if(check->title==name){
+        //         found=2;
         //         cout<<"SONG ALREADY EXISTS!!"<<endl;
-        //         return;
+        //         break;
         //     }
         //     check=check->next;
         // }
@@ -110,7 +111,7 @@ public:
             }
         }
 
-        else
+        else if(found==0)
         {
             cout << "No such song found!!" << endl;
             return;
@@ -237,7 +238,7 @@ public:
     void Recentsong()
     {
         Songs *recent = st.top();
-        st.pop();
+        // st.pop();
         cout << "The recent song you played is:" << recent->title << endl;
     }
 
@@ -257,6 +258,11 @@ public:
 
     void play(string name)
     {
+
+        if(root==NULL){
+            cout<<"Your playlist is empty!!"<<endl;
+            return;
+        }
         Songs *tobeplayed = root;
         int found = 0;
         while (tobeplayed->next != root)
@@ -264,6 +270,7 @@ public:
             if (tobeplayed->title == name)
             {
                 found = 1;
+                st.push(tobeplayed);
                 cout << "Playingg " << tobeplayed->title << ".....";
                 sleep(tobeplayed->duration);
                 return;
@@ -273,6 +280,7 @@ public:
         if (tobeplayed->title == name)
             {
                 found = 1;
+                st.push(tobeplayed);
                 cout << "Playingg " << tobeplayed->title << ".....";
                 sleep(tobeplayed->duration);
                 return;
@@ -340,8 +348,8 @@ int main()
          << "3.DELETE SONGS FROM YOUR PLAYLIST" << endl
          << "4.VIEW SONGS IN YOUR PLAYLIST" << endl
          << "5.PLAY A SONG FROM PLAYLIST" << endl
-         << "6.PLAY NEXT SONG" << endl
-         << "7.PLAY PREVIOUS SONG" << endl
+         << "6.PLAY PREVIOUS SONG" << endl
+         << "7.PLAY NEXT SONG" << endl
          << "8.PLAY SONGS FROM YOUR OWN PLAYLIST ON LOOP" << endl
          << "9.VIEW RECENTLY PLAYED SONGS" << endl;
     int flag = 1;
